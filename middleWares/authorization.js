@@ -22,7 +22,8 @@ const authorization = async (req, res, next) => {
         });
       }
 
-      req.user = decoded.id;
+      req.user = decoded.id; 
+      // console.log("There req.user is " , decoded.id)
       next();
     });
   } catch (error) {

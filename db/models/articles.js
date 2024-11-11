@@ -1,51 +1,45 @@
-// articles.js
 'use strict';
-const { Model, Sequelize } = require('sequelize');
+const {
+  Model ,
+  Sequelize
+} = require('sequelize');
 const sequelize = require('../../config/database');
-
-const Article = sequelize.define('Article', {
+const Article = sequelize.define('articles', {
   id: {
     allowNull: false,
     autoIncrement: true,
     primaryKey: true,
-    type: Sequelize.INTEGER,
+    type: Sequelize.INTEGER
   },
   name: {
-    type: Sequelize.STRING,
-    allowNull: false,
+    type: Sequelize.STRING
   },
   description: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING
   },
   author: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING
   },
   userId: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    references: {
-      model: 'users',
-      key: 'id',
-    },
-    onDelete: 'CASCADE'
+    type: Sequelize.INTEGER
   },
   createdAt: {
     allowNull: false,
-    type: Sequelize.DATE,
+    type: Sequelize.DATE
   },
   updatedAt: {
     allowNull: false,
-    type: Sequelize.DATE,
-  },
-}, {
-  tableName: 'articles'
+    type: Sequelize.DATE
+  }
 });
-
-Article.associate = (models) => {
+Article.associate = function(models) {
   Article.belongsTo(models.User, {
     foreignKey: 'userId',
     as: 'user',
   });
+  Article.hasMany(models.Comment, {
+    foreignKey: 'articleId',
+    as: 'comments',
+  });
 };
-
-module.exports = Article;
+module.exports = Article

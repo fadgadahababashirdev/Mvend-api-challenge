@@ -23,7 +23,7 @@ const login = async (req, res) => {
           status: 'success',
           message: 'user logged in successfully',
           token: jwt.sign({ id: existingUser.id }, process.env.APP_SECRET, {
-            expiresIn: '1h',
+            expiresIn: '24h',
           }),
         });
       }
