@@ -4,7 +4,8 @@ const users = require('../db/models/users');
 // registering user
 const signup = async (req, res) => {
   const { email, password, username } = req.body;
-  try {
+  try { 
+    console.log(`${email} , ${password} , ${username}`)
     const hashedPassword = await bcrypt.hash(password, 10);
     const existingUser = await users.findOne({ where: { email } });
     if (!existingUser) {
@@ -19,9 +20,11 @@ const signup = async (req, res) => {
         user: newUser,
       });
     } else {
-      res.status(400).json({ status: 'failed', message: 'email not found' });
+      res.status(400).json({ status: 'failed', message: 'user arleady exists' });
     }
-  } catch (error) {}
+  } catch (error) {
+    res.status(500).json({status:'failed ' , message:error.message})
+  }
 };
 // get all users
 

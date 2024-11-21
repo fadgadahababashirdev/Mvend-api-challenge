@@ -83,6 +83,7 @@ The server will run on `http://localhost:3100` by default.
 
 ### Article Routes
 
+<!-- each newely created article appears on the top -->
 - **POST** `/api/v1/article` - Create a new article (Authorization required).
 - **GET** `/api/v1/article` - Retrieve all articles (Authorization required).
 - **GET** `/api/v1/article/:id` - Retrieve a single article by ID (Authorization required).
@@ -91,6 +92,7 @@ The server will run on `http://localhost:3100` by default.
 
 ### Comment Routes
 
+<!-- each newlry comment appears on the top -->
 - **POST** `/api/v1/comment` - Add a new comment to an article (Authorization required).
 - **GET** `/api/v1/comment/` - Get all comments on an article (Authorization required).
 - **GET** `/api/v1/comment/:id` - Get a single comment by ID (Authorization required).
@@ -119,8 +121,9 @@ The server will run on `http://localhost:3100` by default.
 - **Error Handling**: Errors are handled and returned in a JSON format with appropriate status codes.
 - **Database Configuration**: The project uses PostgreSQL, configured through Sequelize. Update database credentials in `.env` as needed.
 
-For any questions, please reach out via [your preferred contact method].
-
+For any questions, please reach out via 
+contacts:0793366074 
+email:fadgadahababashirdev@gmail.com
 ---
 
 This README provides the basic information needed to understand and get started with the API, making it accessible for further development or deployment.

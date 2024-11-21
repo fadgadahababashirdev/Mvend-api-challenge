@@ -10,7 +10,7 @@ const login = async (req, res) => {
     if (!existingUser) {
       res
         .status(400)
-        .json({ status: 'failed', message: 'user does not exist' });
+        .json({status:'failed', message: 'user does not exist' });
     } else {
       const comparePassword = await bcrypt.compare(
         password,

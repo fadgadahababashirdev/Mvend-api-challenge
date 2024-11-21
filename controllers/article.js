@@ -48,7 +48,7 @@ const gettingAllArticles = async (req, res) => {
         },
       ],
     });
-
+     console.log("88888888",articles[4])
     res.status(200).json({
       status: 'success',
       data: articles,
@@ -65,17 +65,14 @@ const gettingAllArticles = async (req, res) => {
 const singleArticle = async (req, res) => {
   try {
     const { id } = req.params;
-    const existId = await User.findByPk(id);
+    const existId = await Article.findOne({where:{id} ,include:[{
+      model:Comment ,
+      as:"comments"
+    }]});
     if (!existId) {
-      res.status(400).json({ status: 'failed', message: 'id does not exist' });
+      res.status(400).json({ status: 'failed', message: `id does not exist id:${id}` });
     } else {
-      const article = await Article.findOne({ where: { id } ,
-      include:[{
-        model:Comment ,
-        as:"comments"
-      }]
-      } )
-      res.status(200).json({ status: 'success', article: article });
+      res.status(200).json({ status: 'success', article: existId });
     }
   } catch (error) {
     res.status(500).json({ status: 'failed', message: error.message });
@@ -87,12 +84,12 @@ const singleArticle = async (req, res) => {
 const updateArticle = async (req, res) => {
   try {
     const { id } = req.params;
-    const numberId = await User.findByPk(id);
+    const numberId = await Article.findByPk(id); 
     if (!numberId) {
       res.status(400).json({ status: 'failed', message: 'id not found' });
     } else {
       const { description, name, author } = req.body;
-      const updateArticlee = await Article.update(
+       await Article.update(
         {
           description,
           name,
@@ -102,7 +99,7 @@ const updateArticle = async (req, res) => {
       );
       res
         .status(200)
-        .json({ status: 'success', message: 'article updated successfully' });
+        .json({ status: 'success', message: 'article updated successfully'  });
     }
   } catch (error) {
     res.status(500).json({ status: 'failed', message: error.message });
@@ -113,11 +110,11 @@ const updateArticle = async (req, res) => {
 const deleteArticle = async (req, res) => {
   try {
     const { id } = req.params;
-    const idAvailable = await User.findByPk(id);
+    const idAvailable = await Article.findByPk(id);
     if (!idAvailable) {
       res.status(400).json({ status: 'failed', message: 'id not found' });
     } else {
-      const removeArticle = await Article.destroy({ where: { id: id } });
+       await Article.destroy({ where: { id: id } });
       res
         .status(200)
         .json({ status: 'success', message: 'article deleted successfully' });
